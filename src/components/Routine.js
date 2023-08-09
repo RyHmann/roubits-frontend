@@ -21,18 +21,14 @@ const Routine = ({ routine }) => {
     }
 
     return (
-        <div>
-            <h3>{ routine.name }</h3>
-            <div>
+        <div className="shadow-lg p-4">
+            <h3 className="text-lg text-sky-800">{ routine.name }</h3>
                 { habits.map(habit => 
                     <Habit key={habit.id} habit={habit}/>
                 )}
-            </div>
             <Togglable buttonLabel="Add habit">
-                <div>
                     <p>Add Habit to Routine</p>
                     <HabitForm routine={routine} createHabit={addHabit}/>
-                </div>
             </Togglable>
         </div>
     )

@@ -29,6 +29,11 @@ function App() {
       console.log(error.message)
     }
   }
+
+  const handleLogout = () => {
+    window.localStorage.removeItem('loggedRoubitsAppUser')
+    setUser(null)
+  }
   
   if (!user) {
     return (
@@ -36,8 +41,15 @@ function App() {
     )
   } else {
     return (
-      <div>
-        <Routines user={ user }/>
+      <div className="flex flex-row">
+        <div className="basis-1/2">
+          <Routines user={ user }/>
+        </div>
+        <div className="basis-1/2">
+          <h1>My Bank</h1>
+          <h1>My Rewards</h1>
+        </div>
+        <button onClick={ handleLogout }>Logout</button>
       </div>
     )
   }

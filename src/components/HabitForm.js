@@ -1,4 +1,5 @@
 import { useState } from "react"
+import SubmitButton from "./SubmitButton"
 
 const HabitForm = ( {routine, createHabit} ) => {
 
@@ -30,7 +31,7 @@ const HabitForm = ( {routine, createHabit} ) => {
             Habit value
             <input type="number" min="5" max="100" step="5" value={habitValue} onChange={ ({ target }) => setHabitValue(target.value)}/>
         </label>
-        <button type="submit">Add habit</button>
+        <SubmitButton label="Add habit"/>
     </form>
     )
 }

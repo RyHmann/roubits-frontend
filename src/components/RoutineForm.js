@@ -1,4 +1,5 @@
 import { useState } from "react"
+import SubmitButton from "./SubmitButton"
 
 const RoutineForm = ({ createRoutine }) => {
     const [routineName, setRoutineName] = useState('')
@@ -18,7 +19,7 @@ const RoutineForm = ({ createRoutine }) => {
                 <label>Routine name
                     <input type="text" value={routineName} onChange={ ({ target }) => setRoutineName(target.value)}></input>
                 </label>
-                <button type="submit">Create</button>
+                <SubmitButton label="Create" />
             </form>
         </div>
     )

@@ -23,13 +23,11 @@ const Routines = ({ user }) => {
       }
 
     return (
-        <div>
-            <h1>My Routines</h1>
-            <div>
-                {routines.map(routine => 
-                    <Routine key={ routine.id } routine={ routine }/>
-                )}
-            </div>
+        <div className="outline outline-offset-2 outline-blue-500">
+            <h1 className="text-2xl font-bold">My Routines</h1>
+              {routines.map(routine => 
+                  <Routine key={ routine.id } routine={ routine }/>
+              )}
             <RoutineForm createRoutine={ addRoutine }/>
         </div>
     )

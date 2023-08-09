@@ -1,4 +1,5 @@
 import { useState } from "react"
+import SubmitButton from "./SubmitButton"
 
 const LoginForm = ({ logUser }) => {
     const [username, setUsername] = useState('')
@@ -40,7 +41,7 @@ const LoginForm = ({ logUser }) => {
               onChange={ ({ target }) => setPassword(target.value)}
             />
           </div>
-          <button type="submit">login</button>
+          <SubmitButton type="submit" label="login"/>
         </form>
       </div>
     )

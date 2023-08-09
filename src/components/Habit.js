@@ -1,6 +1,6 @@
 const Habit = ( {habit} ) => {
     return (
-        <div>
+        <div key={ habit.id }>
             {habit.name} {habit.value}
         </div>
     )
