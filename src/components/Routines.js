@@ -1,26 +1,18 @@
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import Routine from "./Routine"
 import RoutineForm from "./RoutineForm"
-import routineService from "../services/routine"
+import { useDispatch, useSelector } from "react-redux"
+import { initializeRoutines } from "../reducers/routineReducer"
 
 const Routines = ({ user }) => {
-    const [routines, setRoutines] = useState([])
+
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        routineService.getByUserId(user.id)
-                      .then(routines => {
-                        setRoutines(routines)
-                      })
-    }, [user.id])
+      dispatch(initializeRoutines(user.id))
+    }, [dispatch, user.id])
 
-    const addRoutine = async (routineObject) => {
-        try {
-          const addedRoutine = await routineService.create(routineObject)
-          setRoutines(routines.concat(addedRoutine))
-        } catch (error) {
-          console.log(error.message)
-        }
-      }
+    const routines = useSelector(state => state.routines)
 
     return (
         <div className="outline outline-offset-2 outline-blue-500">
@@ -28,7 +20,7 @@ const Routines = ({ user }) => {
               {routines.map(routine => 
                   <Routine key={ routine.id } routine={ routine }/>
               )}
-            <RoutineForm createRoutine={ addRoutine }/>
+            <RoutineForm/>
         </div>
     )
 }

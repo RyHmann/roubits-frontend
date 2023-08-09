@@ -1,15 +1,17 @@
-import { useState } from "react"
+// import { useState } from "react"
 import SubmitButton from "./SubmitButton"
+import { useDispatch } from "react-redux"
+import { createRoutine } from "../reducers/routineReducer"
 
-const RoutineForm = ({ createRoutine }) => {
-    const [routineName, setRoutineName] = useState('')
+const RoutineForm = () => {
 
-    const addRoutine = (event) => {
+    const dispatch = useDispatch()
+
+    const addRoutine = async (event) => {
         event.preventDefault()
-        createRoutine({
-            name: routineName
-        })
-        setRoutineName('')
+        const routine = event.target.routine.value
+        event.target.value = ''
+        dispatch(createRoutine(routine))
     }
 
     return (
@@ -17,7 +19,7 @@ const RoutineForm = ({ createRoutine }) => {
             <h1>Add Routine</h1>
             <form onSubmit={addRoutine}>
                 <label>Routine name
-                    <input type="text" value={routineName} onChange={ ({ target }) => setRoutineName(target.value)}></input>
+                    <input type="text" name="routine"/>
                 </label>
                 <SubmitButton label="Create" />
             </form>
