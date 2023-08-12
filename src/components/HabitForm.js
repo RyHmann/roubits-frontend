@@ -1,35 +1,32 @@
-import { useState } from "react"
 import SubmitButton from "./SubmitButton"
+import { createHabit } from "../reducers/routineReducer"
+import { useDispatch } from "react-redux"
 
-const HabitForm = ( {routine, createHabit} ) => {
+const HabitForm = ( {routine} ) => {
 
-    const [habitName, setHabitName] = useState('')
-    const [habitValue, setHabitValue] = useState('5')
+    const dispatch = useDispatch()
 
-    const addHabit = (event) => {
+    const handleAddHabit = (event) => {
         event.preventDefault()
-        createHabit({
-            name: habitName,
-            value: habitValue,
+        const habit = {
+            name: event.target.habitname.value,
+            value: event.target.habitvalue.value,
             routine: routine.id
-        })
-        clearHabitState()
-    }
-
-    const clearHabitState = () => {
-        setHabitName('')
-        setHabitValue('5')
+        }
+        dispatch(createHabit(habit))
+        event.target.habitname.value = ''
+        event.target.habitvalue.value = 5
     }
 
     return (
-        <form onSubmit={addHabit}>
+        <form onSubmit={handleAddHabit}>
         <label>
             Habit name
-            <input type="text" value={habitName} onChange={ ({target}) => setHabitName(target.value)}/>
+            <input type="text" name="habitname"/>
         </label>
         <label>
             Habit value
-            <input type="number" min="5" max="100" step="5" value={habitValue} onChange={ ({ target }) => setHabitValue(target.value)}/>
+            <input type="number" name="habitvalue" min="5" max="100" step="5"/>
         </label>
         <SubmitButton label="Add habit"/>
     </form>

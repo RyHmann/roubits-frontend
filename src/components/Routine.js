@@ -1,24 +1,12 @@
 import Habit from "./Habit"
 import HabitForm from "./HabitForm"
 import Togglable from "./Togglable"
-import habitService from '../services/habit'
-import { useState, useEffect } from "react"
+import { useSelector } from "react-redux"
 
 const Routine = ({ routine }) => {
-    const [habits, setHabits] = useState([])
 
-    useEffect(() => {
-        setHabits(routine.habits)
-    }, [routine.habits])
-
-    const addHabit = async (habitObject) => {
-        try {
-            const addedHabit = await habitService.create(habitObject)
-            setHabits(routine.habits.concat(addedHabit))
-        } catch (error) {
-            console.log(error.message)
-        }
-    }
+    const routineId = routine.id
+    const habits = useSelector(state => state.routines.find(routine => routine.id === routineId)).habits
 
     return (
         <div className="shadow-lg p-4">
@@ -28,7 +16,7 @@ const Routine = ({ routine }) => {
                 )}
             <Togglable buttonLabel="Add habit">
                     <p>Add Habit to Routine</p>
-                    <HabitForm routine={routine} createHabit={addHabit}/>
+                    <HabitForm routine={routine}/>
             </Togglable>
         </div>
     )
