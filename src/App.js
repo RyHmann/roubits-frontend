@@ -1,43 +1,30 @@
-import { useState, useEffect } from 'react'
-import routineService from './services/routine'
-import loginService from './services/login'
+import { useEffect } from 'react'
 import LoginForm from './components/LoginForm'
 import Routines from './components/Routines'
+import { useDispatch, useSelector } from 'react-redux'
+import { initializeUser, logoutUser } from './reducers/userReducer'
 
 function App() {
-  const [user, setUser] = useState(null)
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const loggedUser = window.localStorage.getItem('loggedRoubitsAppUser')
     if (loggedUser) {
       const user = JSON.parse(loggedUser)
-      setUser(user)
-      routineService.setToken(user.token)
+      dispatch(initializeUser(user))
     }
-  }, [])
+  }, [dispatch])
 
-  const userSignIn = async (userObject) => {
-    try {
-      const loggedUser = await loginService.login(userObject)
-      console.log('logged user: ', loggedUser)
-      if (loggedUser) {
-        window.localStorage.setItem('loggedRoubitsAppUser', JSON.stringify(loggedUser))
-        routineService.setToken(loggedUser.token)
-        setUser(loggedUser)
-      }
-    } catch (error) {
-      console.log(error.message)
-    }
-  }
+  const user = useSelector(state => state.user)
 
   const handleLogout = () => {
-    window.localStorage.removeItem('loggedRoubitsAppUser')
-    setUser(null)
+    dispatch(logoutUser())
   }
   
   if (!user) {
     return (
-      <LoginForm logUser={ userSignIn }/>
+      <LoginForm/>
     )
   } else {
     return (
