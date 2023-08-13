@@ -9,10 +9,15 @@ const create = async newHabit => {
 
 const getHabitsByRoutineId = async (routineId) => {
     const response = await axios.get(`${routineUrl}/${routineId}/habits`)
-    console.log(response.data)
+}
+
+const deleteHabit = async habitId => {
+    const response = await axios.delete(`${baseUrl}/${habitId}`)
+    return response.data
 }
 
 export default {
     create,
-    getHabitsByRoutineId
+    getHabitsByRoutineId,
+    deleteHabit
 }

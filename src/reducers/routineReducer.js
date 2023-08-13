@@ -18,6 +18,13 @@ const routineSlice = createSlice({
             const routine = state.find(routine => routine.id === action.payload.routine)
             const updatedRoutine = {...routine, habits: routine.habits.push(action.payload)}
             state.map(routines => routines.id !== updatedRoutine.id ? routines : updatedRoutine)
+        },
+
+        removeHabit(state, action) {
+            const routine = state.find(routine => routine.id === action.payload.routine)
+            const updatedHabits = routine.habits.filter(habit => habit.id !== action.payload.id)
+            const updatedRoutine = {...routine, habits: updatedHabits}
+            return state.map(routines => routines.id !== updatedRoutine.id ? routines : updatedRoutine)
         }
     }
 })
@@ -51,6 +58,13 @@ export const initializeRoutines = (userId) => {
     }
 }
 
-export const { addRoutine, setRoutines, populateRoutine, addHabit } = routineSlice.actions
+export const deleteHabit = (habit) => {
+    return async dispatch => {
+        await habitService.deleteHabit(habit.id)
+        dispatch(removeHabit(habit))
+    }
+}
+
+export const { addRoutine, setRoutines, populateRoutine, addHabit, removeHabit } = routineSlice.actions
 
 export default routineSlice.reducer
