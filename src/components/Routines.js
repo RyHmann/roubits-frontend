@@ -4,9 +4,11 @@ import RoutineForm from "./RoutineForm"
 import { useDispatch, useSelector } from "react-redux"
 import { initializeRoutines } from "../reducers/routineReducer"
 
-const Routines = ({ user }) => {
+const Routines = () => {
 
     const dispatch = useDispatch()
+
+    const user = useSelector(state => state.user)
 
     useEffect(() => {
       dispatch(initializeRoutines(user.id))

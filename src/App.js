@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import LoginForm from './components/LoginForm'
 import Routines from './components/Routines'
+import Bank from './components/Bank'
 import { useDispatch, useSelector } from 'react-redux'
 import { initializeUser, logoutUser } from './reducers/userReducer'
 
@@ -30,10 +31,10 @@ function App() {
     return (
       <div className="flex flex-row">
         <div className="basis-1/2">
-          <Routines user={ user }/>
+          <Routines/>
         </div>
         <div className="basis-1/2">
-          <h1>My Bank</h1>
+          <Bank/>
           <h1>My Rewards</h1>
         </div>
         <button onClick={ handleLogout }>Logout</button>
