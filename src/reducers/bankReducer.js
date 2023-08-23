@@ -14,7 +14,6 @@ const bankSlice = createSlice({
 export const initializeBank = (user) => {
     return async dispatch => {
         const currentBalance = await bankService.getBalance(user)
-        console.log('balance: ', currentBalance)
         dispatch(setBalance(currentBalance.value))
     }
 }
