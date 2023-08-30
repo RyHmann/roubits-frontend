@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import bankService from "../services/bank"
+import depositService from "../services/deposit"
 
 const bankSlice = createSlice({
     name: 'bank',
@@ -7,6 +8,10 @@ const bankSlice = createSlice({
     reducers: {
         setBalance(state, action) {
             return action.payload
+        },
+
+        addToBalance(state, action) {
+            return action.payload.value
         }
     }
 })
@@ -18,6 +23,13 @@ export const initializeBank = (user) => {
     }
 }
 
-export const { setBalance } = bankSlice.actions
+export const depositHabit = (user, habit) => {
+    return async dispatch => {
+        const depositedHabit = await depositService.depositHabit(user, habit)
+        dispatch(addToBalance(depositedHabit))
+    }
+}
+
+export const { setBalance, addToBalance } = bankSlice.actions
 
 export default bankSlice.reducer
